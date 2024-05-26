@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
   containerView: {
     marginTop: windowHeight * 0.5,
     marginLeft: windowWidth * 0.05,
+    backgroundColor: 'yellow',
   },
   containerView1: {
     width: windowWidth * 0.5,
@@ -23,6 +24,11 @@ const styles = StyleSheet.create({
     marginLeft: windowWidth * 0.23,
   },
   containerText1: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  containerText2: {
+    marginLeft: windowWidth * 0.7,
     fontSize: 20,
     fontWeight: '700',
   },

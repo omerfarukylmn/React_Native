@@ -2,16 +2,16 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import styles from './styles';
 
-
 const BaseUrl = 'https://api.collectapi.com';
 const getNews = '/pray/all';
-const datacity='elazig';
-const urlSent = `?datacity=?${datacity}`;
+const city = 'Elazig';
+const data_city = '?data.city=' + city;
+
 export default function Flatlist() {
   const [data, setData] = useState({});
 
   const SendRequest = () => {
-    fetch(BaseUrl+getNews+datacity, {
+    fetch(BaseUrl + getNews + data_city, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -32,10 +32,12 @@ export default function Flatlist() {
     SendRequest();
   }, []);
 
-  
-
   return (
-    <View style={styles.containerView}>
+    <View>
+        <Text style={styles.containerText2}>
+            {city}
+        </Text>
+         <View style={styles.containerView}>
       {data.result && data.result.length > 0 ? (
         data.result.map((item, index) => (
           <View style={styles.containerView1} key={index}>
@@ -47,5 +49,7 @@ export default function Flatlist() {
         <Text style={{color: 'black'}}>Loading...</Text>
       )}
     </View>
+    </View>
+   
   );
 }
