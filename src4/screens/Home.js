@@ -1,17 +1,25 @@
-import { Image, StyleSheet, Text, View , Dimensions} from 'react-native'
-import React from 'react'
-import styles from './styles'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import {arkaplan} from '../assent/icons';
+import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
+import React from 'react';
+import styles from './styles';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Flatlist from '../component/flatlist/Flatlist';
 import Background from '../component/arkaplan/Background';
+import {arkaplan} from '../assent/icons';
+import Time from '../component/time/Time';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function home() {
   return (
-    <SafeAreaView>
-      <Background/>
-        <Flatlist />
+    <SafeAreaView style={{
+      backgroundColor: '#3E76A3',
+      width: windowWidth,
+      height: windowHeight,
+    }}>
+      <Background arkaplan1={arkaplan} />
+      <Flatlist />
+      <Time/>
     </SafeAreaView>
-  )
+  );
 }
-

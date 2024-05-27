@@ -1,3 +1,4 @@
-const arkaplan = require('./arkaplan.webp');
-
-export default {arkaplan};
+const arkaplan = require('./arkaplan.png');
+const down = require('./down.png');
+const ramazan = require('./ramazan.png');
+export  {arkaplan ,down ,ramazan}

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, SafeAreaView} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -8,22 +8,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: windowWidth * 2,
     height: windowHeight * 0.5,
-    marginTop: windowHeight * 0.51,
-    backgroundColor: '#90A49E',
-    borderRadius: 300,
-    marginRight: windowWidth * 0.5,
     justifyContent: 'center',
-    marginLeft: windowWidth * 0.05,
-    opacity: 0.8,
   },
   containerView1: {
     width: windowWidth * 0.6,
     height: windowHeight * 0.04,
-    margin: windowHeight * 0.01,
-    marginTop: windowHeight * 0.02,
-    marginLeft: windowWidth * 0.3,
     flexDirection: 'row',
-    //backgroundColor: 'red',
+    backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2,

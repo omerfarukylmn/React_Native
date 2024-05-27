@@ -7,12 +7,14 @@ const styles = StyleSheet.create({
 
     arkaplan:{
         position: 'absolute',
-        width: windowWidth*0.9,
-        height: windowHeight*0.4,
+        width: windowWidth,
+        height: windowHeight,
         backgroundColor: 'red',
-        marginLeft: windowWidth*0.3,
-        borderRadius: 200,
-    }
+    },
+    containerImage:{
+        width: windowWidth,
+        height: windowHeight,
+    },
 })
 
 export default styles
