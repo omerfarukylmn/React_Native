@@ -1,53 +1,114 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import styles from './styles'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import styles from './styles';
 
+export default function Countdown() {
+  const [timeLeft, setTimeLeft] = useState(null);
+  const [nextPrayer, setNextPrayer] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-const BaseUrl = 'https://api.collectapi.com';
-const getNews = '/pray/single';
-const city = 'elazig';
-const ezan = 'Akşam';
-const data_city = '&data.city=' + city;
-const data_ezan = '?ezan='+ezan;
+  const calculateTimeLeft = (endTime) => {
+    const now = new Date();
+    const [hours, minutes] = endTime.split(':').map(Number);
+    let endDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hours,
+      minutes
+    );
+    if (endDate < now) {
+      // Eğer endTime geçmişse, bir sonraki gün için ayarla
+      endDate.setDate(endDate.getDate() + 1);
+    }
+    const distance = endDate - now;
+    return Math.max(0, Math.floor(distance / 1000)); // Saniye olarak kalan süreyi döndür
+  };
 
-export default function Time() {
-    const [data, setData] = useState({});
+  const fetchPrayerTimes = async () => {
+    try {
+      const response = await fetch(
+        'https://api.collectapi.com/pray/all?data.city=elazig',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization:
+              'apikey 6IpduJYMKDgFOGNZ6MVord:0HROohamAVEW6rcegp5Czu',
+          },
+        }
+      );
+      const data = await response.json();
+      const now = new Date();
+      let closestTime = null;
+      let closestDistance = Infinity;
+      let nextPrayerName = '';
 
-    const SendRequest = () => {
-      fetch(BaseUrl + getNews + data_ezan +data_city, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: 'apikey 6IpduJYMKDgFOGNZ6MVord:0HROohamAVEW6rcegp5Czu',
-        },
-      })
-        .then(response => response.json())
-        .then(r => {
-          setData(r);
-          console.log(r);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          throw error;
-        });
-    };
-  
-    useEffect(() => {
-      SendRequest();
-    }, []);
-  
+      data.result.forEach((item) => {
+        const [hours, minutes] = item.saat.split(':').map(Number);
+        let prayerTime = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          hours,
+          minutes
+        );
+        if (prayerTime < now) {
+          prayerTime.setDate(prayerTime.getDate() + 1); // Eğer namaz vakti geçmişse, bir sonraki gün için ayarla
+        }
+        const distance = prayerTime - now;
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestTime = item.saat;
+          nextPrayerName = item.vakit;
+        }
+      });
+
+      const timeLeftInSeconds = calculateTimeLeft(closestTime);
+      setTimeLeft(timeLeftInSeconds);
+      setNextPrayer(nextPrayerName);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrayerTimes();
+  }, []);
+
+  useEffect(() => {
+    if (timeLeft === null || timeLeft <= 0) return;
+
+    const timerId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => (prevTimeLeft > 0 ? prevTimeLeft - 60 : 0));
+    }, 60000); // Her dakika (60,000 milisaniye) bir geri sayım yap
+
+    return () => clearInterval(timerId);
+  }, [timeLeft]);
+
+  if (isLoading) {
     return (
-        <View style={styles.containerView}>
-        {data.result && data.result.length > 0 ? (
-          data.result.map((item, index) => (
-            <View style={styles.containerView1} key={index}>
-              <Text style={styles.containerText1}>{item.time}</Text>
-              <Text style={styles.containerText1}>{new Date().toLocaleTimeString('tr-TR',{ hour: '2-digit', minute: '2-digit' })}</Text>
-         </View>
-          ))
-        ) : (
-          <Text style={{color: 'black'}}>Loading...</Text>
-        )}
+      <View style={styles.container}>
+        <Text style={styles.loadingText}>Loading...</Text>
       </View>
-  )
+    );
+  }
+
+  const formatTime = (seconds) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    return `${h} saat ${m} dakika`;
+  };
+
+  return (
+    <View>
+      <View style={styles.container}>
+        <Text style={styles.prayerText}>{nextPrayer}</Text>
+        <Text style={styles.timerText}>Ezanına </Text>
+        <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+        <Text style={styles.timerText}> Kaldı</Text>
+      </View>
+    </View>
+  );
 }

@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     marginLeft: windowWidth * 0.06,
   },
   containerView2: {
-    posation: 'absolute',
     width: windowWidth * 0.5,
     height: windowHeight * 0.07,
     backgroundColor: 'white',
@@ -61,6 +60,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.04,
     height: windowHeight * 0.02,
   },
+  
 });
 
 export default styles;
