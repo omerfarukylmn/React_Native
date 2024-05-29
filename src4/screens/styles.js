@@ -7,12 +7,12 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         width: windowWidth,
-        height: windowHeight*0.5,
+        height: windowHeight*0.4,
     },
     View: {
         position: 'absolute',
         width: windowWidth,
-        height: windowHeight,
+        height: windowHeight*0.3,
     },
 })
 

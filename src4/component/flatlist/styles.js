@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 0.02,
     marginLeft: windowWidth * 0.3,
     flexDirection: 'row',
-    //backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomWidth: 2,
@@ -60,7 +59,29 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.04,
     height: windowHeight * 0.02,
   },
-  
+  modalBackground: {
+    position: 'absolute',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.3,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    marginLeft: windowWidth * 0.47,
+    marginTop: windowHeight * 0.48,
+  },
+  flatlist: {
+    width: '100%',
+  },
+  cityItem: {
+    padding: 15,
+    fontSize: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
 });
 
 export default styles;

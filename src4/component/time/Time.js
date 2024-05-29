@@ -18,11 +18,10 @@ export default function Countdown() {
       minutes
     );
     if (endDate < now) {
-      // Eğer endTime geçmişse, bir sonraki gün için ayarla
       endDate.setDate(endDate.getDate() + 1);
     }
     const distance = endDate - now;
-    return Math.max(0, Math.floor(distance / 1000)); // Saniye olarak kalan süreyi döndür
+    return Math.max(0, Math.floor(distance / 1000)); 
   };
 
   const fetchPrayerTimes = async () => {
@@ -34,7 +33,7 @@ export default function Countdown() {
           headers: {
             'Content-Type': 'application/json',
             authorization:
-              'apikey 6IpduJYMKDgFOGNZ6MVord:0HROohamAVEW6rcegp5Czu',
+              'apikey  4TSbJVdu66cs1pIUCzimCa:4y7qQW200V380QaX7QrYDi',
           },
         }
       );
@@ -54,7 +53,7 @@ export default function Countdown() {
           minutes
         );
         if (prayerTime < now) {
-          prayerTime.setDate(prayerTime.getDate() + 1); // Eğer namaz vakti geçmişse, bir sonraki gün için ayarla
+          prayerTime.setDate(prayerTime.getDate() + 1);
         }
         const distance = prayerTime - now;
         if (distance < closestDistance) {
@@ -82,8 +81,7 @@ export default function Countdown() {
 
     const timerId = setInterval(() => {
       setTimeLeft((prevTimeLeft) => (prevTimeLeft > 0 ? prevTimeLeft - 60 : 0));
-    }, 60000); // Her dakika (60,000 milisaniye) bir geri sayım yap
-
+    }, 60000);
     return () => clearInterval(timerId);
   }, [timeLeft]);
 
@@ -106,7 +104,7 @@ export default function Countdown() {
       <View style={styles.container}>
         <Text style={styles.prayerText}>{nextPrayer}</Text>
         <Text style={styles.timerText}>Ezanına </Text>
-        <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+        <Text style={styles.timerText1}>{formatTime(timeLeft)}</Text>
         <Text style={styles.timerText}> Kaldı</Text>
       </View>
     </View>

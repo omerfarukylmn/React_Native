@@ -4,12 +4,12 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
-    width: windowWidth * 0.5,
-    height: windowHeight * 0.15,
+    width: windowWidth * 0.4,
+    height: windowHeight * 0.12,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#B09A99',
-    marginTop: windowHeight * 0.14,
+    marginTop: windowHeight * 0.11,
     alignSelf: 'center',
     opacity: 0.9,
     borderTopRightRadius: 500,
@@ -17,9 +17,16 @@ const styles = StyleSheet.create({
   },
   timerText: {
     alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: '900',
+    fontSize: 18,
+    fontWeight: '700',
     color: 'white',
+  },
+  timerText1: {
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#FFCD71',
+    
   },
   loadingText: {
     fontSize: 24,
