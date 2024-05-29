@@ -6,9 +6,12 @@ import Flatlist from '../component/flatlist/Flatlist';
 import Background from '../component/arkaplan/Background';
 import {arkaplan, ramazan} from '../assent/icons';
 import Time from '../component/time/Time';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+
+const Drawer = createDrawerNavigator();
 
 export default function home() {
   return (
@@ -26,4 +29,5 @@ export default function home() {
       </View>
     </SafeAreaView>
   );
+  
 }
