@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         width: windowWidth,
-        height: windowHeight*0.4,
+        height: windowHeight*0.31,
+
     },
     View: {
         position: 'absolute',

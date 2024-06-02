@@ -4,12 +4,12 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
     width: windowWidth * 0.4,
     height: windowHeight * 0.12,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#B09A99',
-    marginTop: windowHeight * 0.11,
     alignSelf: 'center',
     opacity: 0.9,
     borderTopRightRadius: 500,

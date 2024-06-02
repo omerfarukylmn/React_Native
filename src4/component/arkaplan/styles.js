@@ -9,9 +9,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: windowWidth,
         height: windowHeight,
-        backgroundColor: 'red',
+        
     },
     containerImage:{
+
         width: windowWidth,
         height: windowHeight,
     },

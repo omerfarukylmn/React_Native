@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: windowWidth * 2,
     height: windowHeight * 0.5,
-    marginTop: windowHeight * 0.51,
+    marginTop: windowHeight * 0.36,
     backgroundColor: '#90A49E',
     borderRadius: 300,
     marginRight: windowWidth * 0.5,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 50,
     marginLeft: windowWidth * 0.47,
-    marginTop: windowHeight * 0.42,
+    marginTop: windowHeight * 0.28,
     justifyContent: 'center',
   },
   containerImage: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginLeft: windowWidth * 0.47,
-    marginTop: windowHeight * 0.48,
+    marginTop: windowHeight * 0.518,
   },
   flatlist: {
     width: '100%',

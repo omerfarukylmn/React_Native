@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from './styles';
 
-export default function Countdown() {
+export default function Time({ city }) {
   const [timeLeft, setTimeLeft] = useState(null);
   const [nextPrayer, setNextPrayer] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -27,46 +27,52 @@ export default function Countdown() {
   const fetchPrayerTimes = async () => {
     try {
       const response = await fetch(
-        'https://api.collectapi.com/pray/all?data.city=elazig',
+        `https://api.collectapi.com/pray/all?data.city=${city}`,
         {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             authorization:
-              'apikey  4TSbJVdu66cs1pIUCzimCa:4y7qQW200V380QaX7QrYDi',
+              'apikey 0nPqWChsVb6EWHTxbZuul6:70Y9vmVuZySGNZlU9uqv0h',
           },
         }
       );
       const data = await response.json();
-      const now = new Date();
-      let closestTime = null;
-      let closestDistance = Infinity;
-      let nextPrayerName = '';
 
-      data.result.forEach((item) => {
-        const [hours, minutes] = item.saat.split(':').map(Number);
-        let prayerTime = new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate(),
-          hours,
-          minutes
-        );
-        if (prayerTime < now) {
-          prayerTime.setDate(prayerTime.getDate() + 1);
-        }
-        const distance = prayerTime - now;
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestTime = item.saat;
-          nextPrayerName = item.vakit;
-        }
-      });
+      if (data.result && Array.isArray(data.result) && data.result.length > 0) {
+        const now = new Date();
+        let closestTime = null;
+        let closestDistance = Infinity;
+        let nextPrayerName = '';
 
-      const timeLeftInSeconds = calculateTimeLeft(closestTime);
-      setTimeLeft(timeLeftInSeconds);
-      setNextPrayer(nextPrayerName);
-      setIsLoading(false);
+        data.result.forEach((item) => {
+          const [hours, minutes] = item.saat.split(':').map(Number);
+          let prayerTime = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            hours,
+            minutes
+          );
+          if (prayerTime < now) {
+            prayerTime.setDate(prayerTime.getDate() + 1);
+          }
+          const distance = prayerTime - now;
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestTime = item.saat;
+            nextPrayerName = item.vakit;
+          }
+        });
+
+        const timeLeftInSeconds = calculateTimeLeft(closestTime);
+        setTimeLeft(timeLeftInSeconds);
+        setNextPrayer(nextPrayerName);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false); 
+        console.error('No data received from the API');
+      }
     } catch (error) {
       console.error('Error:', error);
     }
@@ -74,7 +80,7 @@ export default function Countdown() {
 
   useEffect(() => {
     fetchPrayerTimes();
-  }, []);
+  }, [city]);
 
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0) return;
@@ -100,13 +106,11 @@ export default function Countdown() {
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.prayerText}>{nextPrayer}</Text>
-        <Text style={styles.timerText}>Ezanına </Text>
-        <Text style={styles.timerText1}>{formatTime(timeLeft)}</Text>
-        <Text style={styles.timerText}> Kaldı</Text>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.prayerText}>{nextPrayer}</Text>
+      <Text style={styles.timerText}>Ezanına </Text>
+      <Text style={styles.timerText1}>{formatTime(timeLeft)}</Text>
+      <Text style={styles.timerText}> Kaldı</Text>
     </View>
   );
 }
